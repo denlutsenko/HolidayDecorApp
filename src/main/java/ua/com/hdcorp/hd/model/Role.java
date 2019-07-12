@@ -1,6 +1,7 @@
 package ua.com.hdcorp.hd.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.*;
 import java.util.List;
@@ -8,17 +9,17 @@ import java.util.List;
 @Entity
 @Table(name = "roles")
 //@JsonIdentityInfo(generator=ObjectIdGenerators.PropertyGenerator.class, property="id")
-public class Role {
+public class Role implements GrantedAuthority {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "role", nullable = false, length = 20)
-    private String role;
+    private String authority;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "role")
+    @OneToMany(mappedBy = "authorities")
     private List<User> usersList;
 
     public Role() {
@@ -32,12 +33,13 @@ public class Role {
         this.id = id;
     }
 
-    public String getRole() {
-        return role;
+    @Override
+    public String getAuthority() {
+        return authority;
     }
 
-    public void setRole(String role) {
-        this.role = role;
+    public void setAuthority(String authority) {
+        this.authority = authority;
     }
 
     public List<User> getUsersList() {
