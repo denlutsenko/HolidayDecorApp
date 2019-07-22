@@ -1,5 +1,9 @@
 package ua.com.hdcorp.hd.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -7,11 +11,14 @@ import java.util.List;
 
 @Entity
 @Table(name = "clients")
+@Getter
+@Setter
 public class Client implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", updatable = false, nullable = false)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
 
     @Column(name = "company_name", length = 100)

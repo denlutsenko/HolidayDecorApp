@@ -1,16 +1,23 @@
 package ua.com.hdcorp.hd.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.Getter;
+import lombok.Setter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
 @Entity
 @Table(name = "inventory_history")
+@Getter
+@Setter
 public class InventoryHistory implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", updatable = false, nullable = false)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
 
     @OneToOne(fetch = FetchType.EAGER)

@@ -5,13 +5,15 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
+@Table(name = "roles")
 @Getter
 @Setter
-@Table(name = "roles")
 public class Role implements Serializable {
 
     @Id
@@ -20,7 +22,8 @@ public class Role implements Serializable {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
 
-    @Column(name = "name", nullable = false, length = 20, unique = true)
+    @NotNull
     @Size(min = 1, max = 20)
+    @Column(name = "name", unique = true)
     private String name;
 }
