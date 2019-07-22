@@ -34,10 +34,8 @@ public class Postcard implements Serializable {
     @JoinColumn(name = "type_id", nullable = false)
     private PostcardType type;
 
-    @OneToOne(fetch = FetchType.EAGER, mappedBy = "postcard")
-    private Inventory inventory;
-
-    @Column(name = "active_status", columnDefinition="tinyint(1) default true", nullable = false)
+    @Column(name = "active_status", columnDefinition = "tinyint(1) default true", nullable = false)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Boolean activeStatus;
 
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "postcard")
