@@ -32,7 +32,7 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
-    public Employee find(Long employeeId) {
+    public Employee findById(Long employeeId) {
         return employeeRepository.findById(employeeId).orElseThrow(() -> new NotFoundException(EMPLOYEE_NOT_FOUND));
     }
 
@@ -46,13 +46,13 @@ public class EmployeeService {
     }
 
     public Employee update(Long employeeId, Map<String, String> employeePatch) {
-        Employee employee = find(employeeId);
+        Employee employee = findById(employeeId);
         entityPatchHelper.patch(employee, employeePatch);
         return save(employee);
     }
 
     public Employee deactivate(Long employeeId) {
-        Employee employee = find(employeeId);
+        Employee employee = findById(employeeId);
         employee.setActiveStatus(false);
         return save(employee);
     }

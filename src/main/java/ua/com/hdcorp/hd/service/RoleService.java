@@ -22,7 +22,7 @@ public class RoleService {
         this.roleRepository = roleRepository;
     }
 
-    public List<Role> getRoles() {
+    public List<Role> findAll() {
         return roleRepository.findAll();
     }
 
@@ -33,16 +33,11 @@ public class RoleService {
         return roleRepository.save(role);
     }
 
-    public Optional<Role> findRoleById(Long id) {
-        return roleRepository.findById(id);
-    }
-
     public boolean isRoleExists(String roleName) {
-        return roleRepository.findAll().stream()
-                .anyMatch(role -> role.getName().equals(roleName));
+        return roleRepository.findByName(roleName).isPresent();
     }
 
     public boolean isRoleExists(Long id) {
-        return findRoleById(id).isPresent();
+        return roleRepository.findById(id).isPresent();
     }
 }

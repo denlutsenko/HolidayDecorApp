@@ -29,7 +29,7 @@ public class EmployeeController {
 
     @GetMapping(value = "/{employeeId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Employee> findEmployee(@PathVariable("employeeId") Long employeeId) {
-        return ResponseEntity.ok(employeeService.find(employeeId));
+        return ResponseEntity.ok(employeeService.findById(employeeId));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
