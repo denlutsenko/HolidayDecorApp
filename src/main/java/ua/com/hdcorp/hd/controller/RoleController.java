@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import ua.com.hdcorp.hd.model.Role;
 import ua.com.hdcorp.hd.service.RoleServiceImpl;
 
+import javax.validation.Valid;
+
 @RestController
 @CrossOrigin
 @RequestMapping(value = "/roles")
@@ -25,9 +27,8 @@ public class RoleController {
         return ResponseEntity.ok(roleService.getRoles());
     }
 
-    @PostMapping(value="/role", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<?> createRole(@RequestBody Role role){
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Role> createRole(@Valid @RequestBody Role role) {
         return ResponseEntity.ok(roleService.save(role));
-
     }
 }
