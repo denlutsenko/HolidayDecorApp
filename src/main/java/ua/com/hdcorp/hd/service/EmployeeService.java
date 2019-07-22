@@ -8,6 +8,7 @@ import ua.com.hdcorp.hd.repository.EmployeeRepository;
 import ua.com.hdcorp.hd.util.EntityPatchHelper;
 
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Map;
 
 import static ua.com.hdcorp.hd.exception.NotFoundException.Message.EMPLOYEE_NOT_FOUND;
@@ -27,11 +28,15 @@ public class EmployeeService {
         this.entityPatchHelper = entityPatchHelper;
     }
 
-    public Employee findEmployee(Long employeeId) {
+    public List<Employee> findAll() {
+        return employeeRepository.findAll();
+    }
+
+    public Employee find(Long employeeId) {
         return employeeRepository.findById(employeeId).orElseThrow(() -> new NotFoundException(EMPLOYEE_NOT_FOUND));
     }
 
-    public Employee saveEmployee(@Valid Employee employee) {
+    public Employee save(@Valid Employee employee) {
         if (!roleService.isRoleExists(employee.getRole().getId())) {
             throw new NotFoundException(ROLE_NOT_FOUND);
         }
@@ -40,15 +45,15 @@ public class EmployeeService {
         return createdEmployee;
     }
 
-    public Employee updateEmployee(Long employeeId, Map<String, String> employeePatch) {
-        Employee employee = findEmployee(employeeId);
+    public Employee update(Long employeeId, Map<String, String> employeePatch) {
+        Employee employee = find(employeeId);
         entityPatchHelper.patch(employee, employeePatch);
-        return saveEmployee(employee);
+        return save(employee);
     }
 
-    public Employee deactivateEmployee(Long employeeId) {
-        Employee employee = findEmployee(employeeId);
+    public Employee deactivate(Long employeeId) {
+        Employee employee = find(employeeId);
         employee.setActiveStatus(false);
-        return saveEmployee(employee);
+        return save(employee);
     }
 }

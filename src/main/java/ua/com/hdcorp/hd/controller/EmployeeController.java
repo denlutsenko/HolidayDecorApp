@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import ua.com.hdcorp.hd.model.Employee;
 import ua.com.hdcorp.hd.service.EmployeeService;
 
+import java.util.List;
 import java.util.Map;
 
 @RestController
@@ -21,23 +22,28 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Employee>> findEmployees() {
+        return ResponseEntity.ok(employeeService.findAll());
+    }
+
     @GetMapping(value = "/{employeeId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Employee> findEmployee(@PathVariable("employeeId") Long employeeId) {
-        return ResponseEntity.ok(employeeService.findEmployee(employeeId));
+        return ResponseEntity.ok(employeeService.find(employeeId));
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee) {
-        return ResponseEntity.status(HttpStatus.CREATED).body(employeeService.saveEmployee(employee));
+        return ResponseEntity.status(HttpStatus.CREATED).body(employeeService.save(employee));
     }
 
     @PatchMapping(value = "/{employeeId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Employee> updateEmployee(@PathVariable("employeeId") Long employeeId, @RequestBody Map<String, String> employeePatch) {
-        return ResponseEntity.status(HttpStatus.OK).body(employeeService.updateEmployee(employeeId, employeePatch));
+        return ResponseEntity.status(HttpStatus.OK).body(employeeService.update(employeeId, employeePatch));
     }
 
     @DeleteMapping(value = "/{employeeId}")
     public ResponseEntity<Employee> deactivateEmployee(@PathVariable("employeeId") Long employeeId) {
-        return ResponseEntity.status(HttpStatus.OK).body(employeeService.deactivateEmployee(employeeId));
+        return ResponseEntity.status(HttpStatus.OK).body(employeeService.deactivate(employeeId));
     }
 }
