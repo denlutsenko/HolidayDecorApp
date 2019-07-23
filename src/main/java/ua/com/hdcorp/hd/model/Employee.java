@@ -1,20 +1,13 @@
 package ua.com.hdcorp.hd.model;
 
-
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.validator.constraints.Length;
-import org.json.JSONPropertyIgnore;
 
 import javax.persistence.*;
-import javax.validation.constraints.Digits;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.List;
 
 @Entity
 @Table(name = "employees")
@@ -57,7 +50,8 @@ public class Employee implements Serializable {
     private String password;
 
     @NotNull
-    @Column(name = "active_status", nullable = false, columnDefinition="tinyint(1) default true")
+    @Column(name = "active_status", nullable = false, columnDefinition = "tinyint(1) default true")
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Boolean activeStatus = true;
 
     @ManyToOne(fetch = FetchType.EAGER)

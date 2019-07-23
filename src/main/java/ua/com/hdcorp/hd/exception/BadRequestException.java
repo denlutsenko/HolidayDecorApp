@@ -2,19 +2,19 @@ package ua.com.hdcorp.hd.exception;
 
 import org.springframework.http.HttpStatus;
 
-public class NotFoundException extends CustomException {
+public class BadRequestException extends CustomException {
 
     public enum Message {
-        ROLE_NOT_FOUND,
-        EMPLOYEE_NOT_FOUND
+        ROLE_ALREADY_EXISTS,
+        VALIDATION_ERROR
     }
 
-    public NotFoundException(Message message, String description) {
+    public BadRequestException(Message message, String description) {
         super(message.name(), description);
     }
 
     @Override
     public HttpStatus getStatus() {
-        return HttpStatus.NOT_FOUND;
+        return HttpStatus.BAD_REQUEST;
     }
 }

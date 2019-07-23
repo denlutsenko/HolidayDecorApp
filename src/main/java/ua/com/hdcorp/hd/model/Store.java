@@ -5,6 +5,8 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 
 @Entity
@@ -19,19 +21,25 @@ public class Store implements Serializable {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
 
-    @Column(name = "country", length = 50)
+    @Size(max = 50)
+    @Column(name = "country")
     private String country;
 
-    @Column(name = "city", nullable = false, length = 50)
+    @NotNull
+    @Size(max = 50)
+    @Column(name = "city")
     private String city;
 
-    @Column(name = "street", length = 50)
+    @Size(max = 50)
+    @Column(name = "street")
     private String street;
 
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;
 
-    @Column(name = "active_status", columnDefinition="tinyint(1) default true", nullable = false)
-    private Boolean activeStatus;
+    @NotNull
+    @Column(name = "active_status", columnDefinition = "tinyint(1) default true")
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private Boolean activeStatus = true;
 }

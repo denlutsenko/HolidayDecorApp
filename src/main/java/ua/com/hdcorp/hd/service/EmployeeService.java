@@ -2,6 +2,7 @@ package ua.com.hdcorp.hd.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.annotation.Validated;
 import ua.com.hdcorp.hd.exception.NotFoundException;
 import ua.com.hdcorp.hd.model.Employee;
 import ua.com.hdcorp.hd.repository.EmployeeRepository;
@@ -15,6 +16,7 @@ import static ua.com.hdcorp.hd.exception.NotFoundException.Message.EMPLOYEE_NOT_
 import static ua.com.hdcorp.hd.exception.NotFoundException.Message.ROLE_NOT_FOUND;
 
 @Service
+@Validated
 public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
@@ -33,16 +35,16 @@ public class EmployeeService {
     }
 
     public Employee findById(Long employeeId) {
-        return employeeRepository.findById(employeeId).orElseThrow(() -> new NotFoundException(EMPLOYEE_NOT_FOUND));
+        return employeeRepository.findById(employeeId).orElseThrow(() -> new NotFoundException(EMPLOYEE_NOT_FOUND, "Such Employee is not found by ID"));
     }
 
     public Employee save(@Valid Employee employee) {
         if (!roleService.isRoleExists(employee.getRole().getId())) {
-            throw new NotFoundException(ROLE_NOT_FOUND);
+            throw new NotFoundException(ROLE_NOT_FOUND, "Such Role does not exist by ID");
         }
-        Employee createdEmployee = employeeRepository.save(employee);
-        employeeRepository.refresh(createdEmployee);
-        return createdEmployee;
+        Employee savedEmployee = employeeRepository.save(employee);
+        employeeRepository.refresh(savedEmployee);
+        return savedEmployee;
     }
 
     public Employee update(Long employeeId, Map<String, String> employeePatch) {

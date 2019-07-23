@@ -5,8 +5,10 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -21,27 +23,36 @@ public class Client implements Serializable {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
 
-    @Column(name = "company_name", length = 100)
+    @Size(max = 100)
+    @Column(name = "company_name")
     private String companyName;
 
-    @Column(name = "first_name", length = 50)
+    @Size(max = 50)
+    @Column(name = "first_name")
     private String firstName;
 
-    @Column(name = "last_name", length = 50)
+    @Size(max = 50)
+    @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "phone", length = 30)
+    @Size(max = 30)
+    @Column(name = "phone")
     private String phone;
 
-    @Column(name = "email", length = 50)
+    @Size(max = 50)
+    @Column(name = "email")
     private String email;
 
-    @Column(name = "comment", length = 500)
+    @Size(max = 500)
+    @Column(name = "comment")
     private String comment;
 
-    @Column(name = "active_status", columnDefinition="tinyint(1) default true", nullable = false)
-    private Boolean activeStatus;
+    @NotNull
+    @Column(name = "active_status", columnDefinition = "tinyint(1) default true")
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    private Boolean activeStatus = true;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "client")
-    private List<Store> store = new ArrayList<>();
+    @Valid
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "client", cascade = {CascadeType.PERSIST})
+    private List<Store> stores;
 }
