@@ -2,76 +2,51 @@ package ua.com.hdcorp.hd.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
-import org.springframework.web.multipart.MultipartFile;
 import ua.com.hdcorp.hd.exception.NotFoundException;
 import ua.com.hdcorp.hd.model.Postcard;
-import ua.com.hdcorp.hd.model.PostcardType;
 import ua.com.hdcorp.hd.repository.PostcardRepository;
-import ua.com.hdcorp.hd.util.ImageHelper;
+import ua.com.hdcorp.hd.util.EntityPatchHelper;
 
 import java.util.List;
-import java.util.Objects;
+import java.util.Map;
 
 import static ua.com.hdcorp.hd.exception.NotFoundException.Message.POSTCARD_NOT_FOUND;
-import static ua.com.hdcorp.hd.exception.NotFoundException.Message.POSTCARD_TYPE_NOT_FOUND;
 
 @Service
 public class PostcardService {
 
     private final PostcardRepository postcardRepository;
-    private final PostcardTypeService postcardTypeService;
-    private final ImageHelper imageHelper;
+    private final EntityPatchHelper entityPatchHelper;
 
     @Autowired
-    public PostcardService(PostcardRepository postcardRepository, PostcardTypeService postcardTypeService, ImageHelper imageHelper) {
+    public PostcardService(PostcardRepository postcardRepository, EntityPatchHelper entityPatchHelper) {
         this.postcardRepository = postcardRepository;
-        this.postcardTypeService = postcardTypeService;
-        this.imageHelper = imageHelper;
+        this.entityPatchHelper = entityPatchHelper;
     }
 
     public List<Postcard> getPostcards() {
         return postcardRepository.findAll();
     }
 
-    public Postcard findById(Long employeeId) {
-        return postcardRepository.findById(employeeId).orElseThrow(() -> new NotFoundException(POSTCARD_NOT_FOUND, "Postcard is not found by ID"));
+    public Postcard findById(Long postcardId) {
+        return postcardRepository.findById(postcardId).orElseThrow(() -> new NotFoundException(POSTCARD_NOT_FOUND, "Such postcard is not found by ID"));
     }
 
-    public Postcard save(MultipartFile file, String vendorCode, Long postcardTypeId) {
-        if (!postcardTypeService.isPostcardTypeExists(postcardTypeId)) {
-            throw new NotFoundException(POSTCARD_TYPE_NOT_FOUND, "Could not find postcard category by Id");
-        }
-        imageHelper.saveImage(file, postcardTypeId);
-
-        String imageFolderPath = imageHelper.concatenateFolderPath(postcardTypeId).toString();
-        String imageName = imageHelper.getImageName(file);
-        PostcardType postcardType = postcardTypeService.findById(postcardTypeId);
-
-        Postcard postcard = new Postcard(imageFolderPath, imageName, vendorCode, postcardType);
-
-        Postcard createdPostcard = postcardRepository.save(postcard);
-        postcardRepository.refresh(createdPostcard);
-        return createdPostcard;
+    //TODO Write logic.
+    public Postcard save(Postcard postcard) {
+        return new Postcard();
     }
 
-    public Postcard update(MultipartFile file, String vendorCode, Long postcardId) {
+    public Postcard update(Long postcardId, Map<String, String> postcardPatch) {
         Postcard postcard = findById(postcardId);
-        Long postcardType = postcard.getType().getId();
-        if (!Objects.isNull(file)) {
-            imageHelper.saveImage(file, postcardType);
-            postcard.setPhotoLocation(imageHelper.concatenateFolderPath(postcardType).toString());
-            postcard.setPhotoName(imageHelper.getImageName(file));
-        }
-        if (!StringUtils.isEmpty(vendorCode)) {
-            postcard.setVendorCode(vendorCode);
-        }
-        return postcardRepository.save(postcard);
+        entityPatchHelper.patch(postcard, postcardPatch);
+        return save(postcard);
     }
 
-    public Postcard deactivate(Long employeeId) {
-        Postcard postcard = findById(employeeId);
+    public Postcard deactivate(Long postcardId) {
+        Postcard postcard = findById(postcardId);
         postcard.setActiveStatus(false);
-        return postcardRepository.save(postcard);
+        return save(postcard);
     }
+
 }
