@@ -44,6 +44,7 @@ public class ImageHelper {
                 ImageIO.write(resizedImageJpg, extension, imageToSave);
 
             } catch (IOException e) {
+
             }
         }
     }
