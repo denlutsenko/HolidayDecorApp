@@ -40,10 +40,12 @@ public class PostcardController {
         return ResponseEntity.status(HttpStatus.CREATED).body(postcardService.save(file, vendorCode, postcardTypeId));
     }
 
-//    @PatchMapping(value = "/{postcardId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-//    public ResponseEntity<Postcard> updatePostcard(@PathVariable("postcardId") Long postcardId, @RequestBody Map<String, String> postcardPatch) {
-//        return ResponseEntity.status(HttpStatus.OK).body(postcardService.update(postcardId, postcardPatch));
-//    }
+    @PatchMapping
+    public ResponseEntity<Postcard> updatePostcard(@RequestParam(value = "file", required = false) MultipartFile file,
+                                                   @RequestParam(value = "vendorCode") String vendorCode,
+                                                   @RequestParam(value = "postcardId") Long postcardId) {
+        return ResponseEntity.status(HttpStatus.OK).body(postcardService.update(file, vendorCode, postcardId));
+    }
 
     @DeleteMapping(value = "/{postcardId}")
     public ResponseEntity<Postcard> deletePostcard(@PathVariable("postcardId") Long postcardId) {
