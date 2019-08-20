@@ -7,6 +7,7 @@ public class NotFoundException extends CustomException {
     public enum Message {
         ROLE_NOT_FOUND,
         EMPLOYEE_NOT_FOUND,
+        POSTCARD_NOT_FOUND,
         POSTCARD_TYPE_NOT_FOUND
     }
 

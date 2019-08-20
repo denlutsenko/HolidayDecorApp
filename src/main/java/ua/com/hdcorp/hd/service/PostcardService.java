@@ -12,6 +12,7 @@ import ua.com.hdcorp.hd.util.ImageHelper;
 
 import java.util.List;
 
+import static ua.com.hdcorp.hd.exception.NotFoundException.Message.POSTCARD_NOT_FOUND;
 import static ua.com.hdcorp.hd.exception.NotFoundException.Message.POSTCARD_TYPE_NOT_FOUND;
 
 @Service
@@ -33,6 +34,9 @@ public class PostcardService {
         return postcardRepository.findAll();
     }
 
+    public Postcard findById(Long employeeId) {
+        return postcardRepository.findById(employeeId).orElseThrow(() -> new NotFoundException(POSTCARD_NOT_FOUND, "Postcard is not found by ID"));
+    }
     public Postcard save(MultipartFile file, String vendorCode, Long postcardTypeId) {
         if (!postcardTypeService.isPostcardTypeExists(postcardTypeId)) {
             throw new NotFoundException(POSTCARD_TYPE_NOT_FOUND, "Could not find postcard category by Id");
@@ -48,5 +52,11 @@ public class PostcardService {
         Postcard createdPostcard = postcardRepository.save(postcard);
         postcardRepository.refresh(createdPostcard);
         return createdPostcard;
+    }
+
+    public Postcard deactivate(Long employeeId) {
+        Postcard postcard = findById(employeeId);
+        postcard.setActiveStatus(false);
+        return postcardRepository.save(postcard);
     }
 }
