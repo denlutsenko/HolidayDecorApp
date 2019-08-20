@@ -4,6 +4,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
+import ua.com.hdcorp.hd.exception.CreationException;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -16,7 +17,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-
+import static ua.com.hdcorp.hd.exception.CreationException.Message.FOLDER_CREATION_ERROR;
+import static ua.com.hdcorp.hd.exception.CreationException.Message.PHOTO_SAVING_ERROR;
 import static ua.com.hdcorp.hd.util.Constants.*;
 
 @Component
@@ -44,7 +46,7 @@ public class ImageHelper {
                 ImageIO.write(resizedImageJpg, extension, imageToSave);
 
             } catch (IOException e) {
-
+                throw new CreationException(PHOTO_SAVING_ERROR, "Could not save image");
             }
         }
     }
@@ -53,6 +55,7 @@ public class ImageHelper {
         try {
             Files.createDirectories(path);
         } catch (IOException e) {
+            throw new CreationException(FOLDER_CREATION_ERROR, "Could not create folder");
         }
     }
 
