@@ -8,7 +8,6 @@ import ua.com.hdcorp.hd.repository.BaseRepository;
 @SpringBootApplication
 @EnableJpaRepositories(repositoryBaseClass = BaseRepository.class)
 public class HolidayDecorApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(HolidayDecorApplication.class, args);
     }
