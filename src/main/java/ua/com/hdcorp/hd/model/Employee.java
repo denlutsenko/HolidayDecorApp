@@ -1,60 +1,85 @@
 package ua.com.hdcorp.hd.model;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Getter;
-import lombok.Setter;
-
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
-import java.io.Serializable;
+import java.util.List;
+
+
+/**
+ * Simple domain object that represents application user.
+ *
+ * @author Eugene Suleimanov
+ * @version 1.0
+ */
 
 @Entity
-@Table(name = "employees")
-@Getter
-@Setter
-public class Employee implements Serializable {
-
+@Table(name = "users")
+public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", updatable = false, nullable = false)
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotNull
-    @Size(max = 50)
+    @Column(name = "username")
+    private String username;
+
     @Column(name = "first_name")
     private String firstName;
 
-    @NotNull
-    @Size(max = 50)
     @Column(name = "last_name")
     private String lastName;
 
-    @Size(max = 50)
-    @Column(name = "address")
-    private String address;
-
-    @Size(max = 20)
-    @Column(name = "phone")
-    private String phone;
-
-    @NotNull
-    @Size(max = 50)
-    @Column(name = "email", unique = true)
+    @Column(name = "email")
     private String email;
 
-    @NotNull
-    @Size(min = 8, max = 50)
     @Column(name = "password")
     private String password;
 
-    @NotNull
-    @Column(name = "active_status", nullable = false, columnDefinition = "tinyint(1) default true")
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
-    private Boolean activeStatus = true;
+    public Employee(){}
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "role_id")
-    private Role role;
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getFirstName() {
+        return firstName;
+    }
+
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 }
