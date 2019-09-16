@@ -1,4 +1,4 @@
-package ua.com.hdcorp.hd.config;
+package ua.com.hdcorp.hd.securityconfig;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,8 +8,8 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
-import ua.com.hdcorp.hd.security.jwt.JwtConfigurer;
-import ua.com.hdcorp.hd.security.jwt.JwtTokenProvider;
+import ua.com.hdcorp.hd.securityconfig.jwt.JwtConfigurer;
+import ua.com.hdcorp.hd.securityconfig.jwt.JwtTokenProvider;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {

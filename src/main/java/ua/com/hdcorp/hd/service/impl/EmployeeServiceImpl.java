@@ -17,13 +17,13 @@ import java.util.List;
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
 
-    private final EmployeeRepository userRepository;
+    private final EmployeeRepository employeeRepository;
     private final RoleRepository roleRepository;
     private final BCryptPasswordEncoder passwordEncoder;
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeRepository userRepository, RoleRepository roleRepository, BCryptPasswordEncoder passwordEncoder) {
-        this.userRepository = userRepository;
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, RoleRepository roleRepository, BCryptPasswordEncoder passwordEncoder) {
+        this.employeeRepository = employeeRepository;
         this.roleRepository = roleRepository;
         this.passwordEncoder = passwordEncoder;
     }
@@ -37,28 +37,23 @@ public class EmployeeServiceImpl implements EmployeeService {
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(userRoles);
         user.setStatus(Status.ACTIVE);
-
-        Employee registeredUser = userRepository.save(user);
-
-
-        return registeredUser;
+        return employeeRepository.save(user);
     }
 
     @Override
     public List<Employee> getAll() {
-        List<Employee> result = userRepository.findAll();
+        List<Employee> result = employeeRepository.findAll();
         return result;
     }
 
     @Override
-    public Employee findByUsername(String username) {
-        Employee result = userRepository.findByUsername(username);
-        return result;
+    public Employee findByUsername(String email) {
+        return employeeRepository.findByEmail(email);
     }
 
     @Override
     public Employee findById(Long id) {
-        Employee result = userRepository.findById(id).orElse(null);
+        Employee result = employeeRepository.findById(id).orElse(null);
 
         if (result == null) {
             return null;
@@ -69,6 +64,6 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public void delete(Long id) {
-        userRepository.deleteById(id);
+        employeeRepository.deleteById(id);
     }
 }

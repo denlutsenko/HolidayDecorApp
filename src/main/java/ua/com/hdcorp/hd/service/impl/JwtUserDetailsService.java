@@ -1,4 +1,4 @@
-package ua.com.hdcorp.hd.security;
+package ua.com.hdcorp.hd.service.impl;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,12 +7,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ua.com.hdcorp.hd.model.Employee;
-import ua.com.hdcorp.hd.security.jwt.JwtEmployee;
-import ua.com.hdcorp.hd.security.jwt.JwtEmployeeFactory;
+import ua.com.hdcorp.hd.securityconfig.jwt.JwtEmployeeFactory;
 import ua.com.hdcorp.hd.service.EmployeeService;
 
 @Service
-
 public class JwtUserDetailsService implements UserDetailsService {
 
     private final EmployeeService employeeService;
@@ -23,14 +21,13 @@ public class JwtUserDetailsService implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Employee user = employeeService.findByUsername(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        Employee user = employeeService.findByUsername(email);
 
         if (user == null) {
-            throw new UsernameNotFoundException("User with username: " + username + " not found");
+            throw new UsernameNotFoundException("User by email: " + email + " not found");
         }
 
-        JwtEmployee jwtUser = JwtEmployeeFactory.create(user);
-        return jwtUser;
+        return JwtEmployeeFactory.create(user);
     }
 }

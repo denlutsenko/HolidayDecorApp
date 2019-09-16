@@ -1,4 +1,4 @@
-package ua.com.hdcorp.hd.security.jwt;
+package ua.com.hdcorp.hd.securityconfig.jwt;
 
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;

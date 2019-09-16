@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import ua.com.hdcorp.hd.dto.AuthenticationRequestDto;
 import ua.com.hdcorp.hd.model.Employee;
-import ua.com.hdcorp.hd.security.jwt.JwtTokenProvider;
+import ua.com.hdcorp.hd.securityconfig.jwt.JwtTokenProvider;
 import ua.com.hdcorp.hd.service.EmployeeService;
 
 import java.util.HashMap;
@@ -39,20 +38,23 @@ public class AuthenticationRestControllerV1 {
     }
 
     @PostMapping("login")
-    public ResponseEntity login(@RequestBody AuthenticationRequestDto requestDto) {
+    public ResponseEntity login(@RequestBody Map<String, String> requestDto) {
         try {
-            String username = requestDto.getUsername();
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(username, requestDto.getPassword()));
-            Employee user = employeeService.findByUsername(username);
+           // String email = requestDto.getEmail();
+            Map<String, String> aa = requestDto;
+           String email = aa.get("email");
+           String password= aa.get("password");
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email,password));
+            Employee employee = employeeService.findByUsername(email);
 
-            if (user == null) {
-                throw new UsernameNotFoundException("User with username: " + username + " not found");
+            if (employee == null) {
+                throw new UsernameNotFoundException("User with username: " + email + " not found");
             }
 
-            String token = jwtTokenProvider.createToken(username, user.getRoles());
+            String token = jwtTokenProvider.createToken(email, employee.getRoles());
 
             Map<Object, Object> response = new HashMap<>();
-            response.put("username", username);
+            response.put("email", email);
             response.put("token", token);
 
             return ResponseEntity.ok(response);

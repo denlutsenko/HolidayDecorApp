@@ -1,4 +1,4 @@
-package ua.com.hdcorp.hd.security.jwt;
+package ua.com.hdcorp.hd.securityconfig.jwt;
 
 import org.springframework.security.core.AuthenticationException;
 

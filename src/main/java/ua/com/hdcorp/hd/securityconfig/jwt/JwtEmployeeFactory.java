@@ -1,4 +1,4 @@
-package ua.com.hdcorp.hd.security.jwt;
+package ua.com.hdcorp.hd.securityconfig.jwt;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -18,7 +18,7 @@ public final class JwtEmployeeFactory {
     public static JwtEmployee create(Employee employee) {
         return new JwtEmployee(
                 employee.getId(),
-                employee.getUsername(),
+                employee.getEmail(),
                 employee.getFirstName(),
                 employee.getLastName(),
                 employee.getEmail(),

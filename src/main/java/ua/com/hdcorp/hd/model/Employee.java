@@ -1,17 +1,32 @@
 package ua.com.hdcorp.hd.model;
 
 
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import javax.persistence.*;
+import java.util.Date;
 import java.util.List;
 
 
 @Entity
 @Table(name = "employees")
 
-public class Employee extends BaseEntity {
+public class Employee{
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @CreatedDate
+    @Column(name = "created")
+    private Date created;
 
-    @Column(name = "username")
-    private String username;
+    @LastModifiedDate
+    @Column(name = "updated")
+    private Date updated;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "status")
+    private Status status;
 
     @Column(name = "first_name")
     private String firstName;
@@ -32,14 +47,6 @@ public class Employee extends BaseEntity {
     private List<Role> roles;
 
     public Employee(){}
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -79,5 +86,37 @@ public class Employee extends BaseEntity {
 
     public void setRoles(List<Role> roles) {
         this.roles = roles;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
+    }
+
+    public Date getUpdated() {
+        return updated;
+    }
+
+    public void setUpdated(Date updated) {
+        this.updated = updated;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }
