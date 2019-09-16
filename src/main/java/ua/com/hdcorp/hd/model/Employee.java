@@ -1,22 +1,14 @@
 package ua.com.hdcorp.hd.model;
 
+
 import javax.persistence.*;
 import java.util.List;
 
 
-/**
- * Simple domain object that represents application user.
- *
- * @author Eugene Suleimanov
- * @version 1.0
- */
-
 @Entity
-@Table(name = "users")
-public class Employee {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+@Table(name = "employees")
+
+public class Employee extends BaseEntity {
 
     @Column(name = "username")
     private String username;
@@ -32,6 +24,12 @@ public class Employee {
 
     @Column(name = "password")
     private String password;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "employee_roles",
+            joinColumns = {@JoinColumn(name = "employee_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
+    private List<Role> roles;
 
     public Employee(){}
 
@@ -75,11 +73,11 @@ public class Employee {
         this.password = password;
     }
 
-    public Long getId() {
-        return id;
+    public List<Role> getRoles() {
+        return roles;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
     }
 }

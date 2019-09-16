@@ -1,0 +1,19 @@
+package ua.com.hdcorp.hd.service;
+
+
+import ua.com.hdcorp.hd.model.Employee;
+
+import java.util.List;
+
+public interface EmployeeService {
+
+    Employee register(Employee user);
+
+    List<Employee> getAll();
+
+    Employee findByUsername(String username);
+
+    Employee findById(Long id);
+
+    void delete(Long id);
+}
