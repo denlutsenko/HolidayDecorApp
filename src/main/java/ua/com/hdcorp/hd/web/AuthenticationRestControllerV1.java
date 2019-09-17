@@ -1,4 +1,4 @@
-package ua.com.hdcorp.hd.rest;
+package ua.com.hdcorp.hd.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -18,16 +18,13 @@ import ua.com.hdcorp.hd.service.EmployeeService;
 import java.util.HashMap;
 import java.util.Map;
 
-
-
 @RestController
 @RequestMapping(value = "/api/v1/auth/")
 public class AuthenticationRestControllerV1 {
-
+    private final static String PASSWORD = "password";
+    private final static String EMAIL = "email";
     private final AuthenticationManager authenticationManager;
-
     private final JwtTokenProvider jwtTokenProvider;
-
     private final EmployeeService employeeService;
 
     @Autowired
@@ -40,11 +37,8 @@ public class AuthenticationRestControllerV1 {
     @PostMapping("login")
     public ResponseEntity login(@RequestBody Map<String, String> requestDto) {
         try {
-           // String email = requestDto.getEmail();
-            Map<String, String> aa = requestDto;
-           String email = aa.get("email");
-           String password= aa.get("password");
-            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email,password));
+            String email = requestDto.get(EMAIL);
+            authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(email, requestDto.get(PASSWORD)));
             Employee employee = employeeService.findByUsername(email);
 
             if (employee == null) {
@@ -52,12 +46,12 @@ public class AuthenticationRestControllerV1 {
             }
 
             String token = jwtTokenProvider.createToken(email, employee.getRoles());
-
             Map<Object, Object> response = new HashMap<>();
             response.put("email", email);
             response.put("token", token);
 
             return ResponseEntity.ok(response);
+
         } catch (AuthenticationException e) {
             throw new BadCredentialsException("Invalid username or password");
         }

@@ -11,12 +11,12 @@ import ua.com.hdcorp.hd.securityconfig.jwt.JwtEmployeeFactory;
 import ua.com.hdcorp.hd.service.EmployeeService;
 
 @Service
-public class JwtUserDetailsService implements UserDetailsService {
+public class JwtUserDetailsServiceImpl implements UserDetailsService {
 
     private final EmployeeService employeeService;
 
     @Autowired
-    public JwtUserDetailsService(EmployeeService employeeService) {
+    public JwtUserDetailsServiceImpl(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
 

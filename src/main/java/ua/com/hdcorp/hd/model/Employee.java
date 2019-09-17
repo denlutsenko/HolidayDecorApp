@@ -1,10 +1,14 @@
 package ua.com.hdcorp.hd.model;
 
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 
@@ -14,8 +18,11 @@ import java.util.List;
 
 public class Employee{
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "id", updatable = false, nullable = false)
+    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
+
     @CreatedDate
     @Column(name = "created")
     private Date created;
@@ -26,20 +33,37 @@ public class Employee{
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private Status status;
+    private EmployeeStatus status;
 
+    @NotNull
+    @Size(max = 50)
     @Column(name = "first_name")
     private String firstName;
 
+    @NotNull
+    @Size(max = 50)
     @Column(name = "last_name")
     private String lastName;
 
-    @Column(name = "email")
+    @Size(max = 50)
+    @Column(name = "address")
+    private String address;
+
+    @Size(max = 20)
+    @Column(name = "phone")
+    private String phone;
+
+    @NotNull
+    @Size(max = 50)
+    @Column(name = "email", unique = true)
     private String email;
 
+    @NotNull
+    @Size(min = 8, max = 250)
     @Column(name = "password")
     private String password;
 
+    @JsonManagedReference
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "employee_roles",
             joinColumns = {@JoinColumn(name = "employee_id", referencedColumnName = "id")},
@@ -112,11 +136,27 @@ public class Employee{
         this.updated = updated;
     }
 
-    public Status getStatus() {
+    public EmployeeStatus getStatus() {
         return status;
     }
 
-    public void setStatus(Status status) {
+    public void setStatus(EmployeeStatus status) {
         this.status = status;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

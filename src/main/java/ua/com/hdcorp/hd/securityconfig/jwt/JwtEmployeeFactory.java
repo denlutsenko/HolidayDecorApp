@@ -4,7 +4,7 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import ua.com.hdcorp.hd.model.Employee;
 import ua.com.hdcorp.hd.model.Role;
-import ua.com.hdcorp.hd.model.Status;
+import ua.com.hdcorp.hd.model.EmployeeStatus;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +24,7 @@ public final class JwtEmployeeFactory {
                 employee.getEmail(),
                 employee.getPassword(),
                 mapToGrantedAuthorities(new ArrayList<>(employee.getRoles())),
-                employee.getStatus().equals(Status.ACTIVE),
+                employee.getStatus().equals(EmployeeStatus.ACTIVE),
                 employee.getUpdated()
         );
     }
@@ -32,7 +32,7 @@ public final class JwtEmployeeFactory {
     private static List<GrantedAuthority> mapToGrantedAuthorities(List<Role> employeeRole) {
         return employeeRole.stream()
                 .map(role ->
-                        new SimpleGrantedAuthority(role.getName())
+                        new SimpleGrantedAuthority(role.getName().toString())
                 ).collect(Collectors.toList());
     }
 }
