@@ -1,6 +1,5 @@
 package ua.com.hdcorp.hd.web;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,17 +12,17 @@ import ua.com.hdcorp.hd.service.EmployeeService;
 
 
 @RestController
-@RequestMapping(value = "/api/v1/admin/")
-public class AdminRestControllerV1 {
+@RequestMapping(value = "/api/v1/")
+public class EmployeeController {
 
     private final EmployeeService employeeService;
 
     @Autowired
-    public AdminRestControllerV1(EmployeeService employeeService) {
+    public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
 
-    @GetMapping(value = "users/{id}")
+    @GetMapping(value = "admin/{id}")
     public ResponseEntity<Employee> getUserById(@PathVariable(name = "id") Long id) {
         Employee employee = employeeService.findById(id);
 

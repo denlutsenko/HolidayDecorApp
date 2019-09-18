@@ -15,7 +15,6 @@ import java.util.List;
 
 @Entity
 @Table(name = "employees")
-
 public class Employee{
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
