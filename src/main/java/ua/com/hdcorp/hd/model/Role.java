@@ -6,10 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.validation.annotation.Validated;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.List;
-
-
 
 @Entity
 @Table(name = "roles")
@@ -21,19 +18,19 @@ public class Role {
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;
 
-    @NotNull
-    @Column(name = "name")
+    @Column(name = "name", nullable = false)
     private String name;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private EmployeeStatus status;
+    private Status status = Status.ACTIVE;
 
     @JsonBackReference
     @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
     private List<Employee> employees;
 
-    public Role(){}
+    public Role() {
+    }
 
     public List<Employee> getEmployees() {
         return employees;
@@ -51,11 +48,11 @@ public class Role {
         this.id = id;
     }
 
-    public EmployeeStatus getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(EmployeeStatus status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 

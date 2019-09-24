@@ -7,15 +7,13 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 
-
 @Entity
 @Table(name = "employees")
-public class Employee{
+public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     @Column(name = "id", updatable = false, nullable = false)
@@ -32,16 +30,14 @@ public class Employee{
 
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
-    private EmployeeStatus status;
+    private Status status = Status.ACTIVE;
 
-    @NotNull
     @Size(max = 50)
-    @Column(name = "first_name")
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @NotNull
     @Size(max = 50)
-    @Column(name = "last_name")
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
     @Size(max = 50)
@@ -52,14 +48,12 @@ public class Employee{
     @Column(name = "phone")
     private String phone;
 
-    @NotNull
     @Size(max = 50)
-    @Column(name = "email", unique = true)
+    @Column(name = "email", unique = true, nullable = false)
     private String email;
 
-    @NotNull
     @Size(min = 8, max = 250)
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
     @JsonManagedReference
@@ -69,7 +63,8 @@ public class Employee{
             inverseJoinColumns = {@JoinColumn(name = "role_id", referencedColumnName = "id")})
     private List<Role> roles;
 
-    public Employee(){}
+    public Employee() {
+    }
 
     public String getFirstName() {
         return firstName;
@@ -135,11 +130,11 @@ public class Employee{
         this.updated = updated;
     }
 
-    public EmployeeStatus getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(EmployeeStatus status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 

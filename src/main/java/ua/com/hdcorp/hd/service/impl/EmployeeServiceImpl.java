@@ -6,7 +6,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ua.com.hdcorp.hd.model.Employee;
 import ua.com.hdcorp.hd.model.Role;
-import ua.com.hdcorp.hd.model.EmployeeStatus;
+import ua.com.hdcorp.hd.model.Status;
 import ua.com.hdcorp.hd.repository.EmployeeRepository;
 import ua.com.hdcorp.hd.repository.RoleRepository;
 import ua.com.hdcorp.hd.service.EmployeeService;
@@ -35,7 +35,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(userRoles);
-        user.setStatus(EmployeeStatus.ACTIVE);
+        user.setStatus(Status.ACTIVE);
         return employeeRepository.save(user);
     }
 
@@ -57,7 +57,6 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (result == null) {
             return null;
         }
-
         return result;
     }
 
