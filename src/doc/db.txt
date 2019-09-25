@@ -1,0 +1,27 @@
+drop database hdcorp1;
+create database hdcorp1;
+use hdcorp1;
+
+select * from employees;
+select * from stores;
+select * from roles;
+select * from employee_roles;
+
+
+
+
+
+
+insert into employees values
+(1, 'Kiev', curdate(),'email', 'Den', 'Luts', '$2a$10$XcyYfg1omRLJKETsSNYUeOVFpSNw1nhoG5HGFhzChv6I9ALbQyStG','0953222096', 'ACTIVE', curdate()),
+(2, 'Kiev', curdate(),'email1', 'Den', 'Luts', '$2a$10$XcyYfg1omRLJKETsSNYUeOVFpSNw1nhoG5HGFhzChv6I9ALbQyStG','0953222096', 'ACTIVE', curdate());
+
+
+insert into roles values
+(1, 'ROLE_ADMIN', 'ACTIVE'),
+(2, 'ROLE_USER', 'ACTIVE');
+
+
+insert into employee_roles values
+(1,1),
+(2,2);
