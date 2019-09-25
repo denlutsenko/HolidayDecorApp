@@ -1,6 +1,7 @@
 package ua.com.hdcorp.hd.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.CreatedDate;
@@ -15,9 +16,9 @@ import java.util.List;
 @Table(name = "employees")
 public class Employee {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
-    @Column(name = "id", updatable = false, nullable = false)
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+
     private Long id;
 
     @CreatedDate
@@ -28,6 +29,7 @@ public class Employee {
     @Column(name = "updated")
     private Date updated;
 
+    @JsonIgnore
     @Enumerated(EnumType.STRING)
     @Column(name = "status")
     private Status status = Status.ACTIVE;
@@ -56,7 +58,7 @@ public class Employee {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @JsonManagedReference
+    //@JsonManagedReference
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "employee_roles",
             joinColumns = {@JoinColumn(name = "employee_id", referencedColumnName = "id")},

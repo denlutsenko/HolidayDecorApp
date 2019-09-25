@@ -2,13 +2,13 @@ package ua.com.hdcorp.hd.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ua.com.hdcorp.hd.model.Employee;
-import ua.com.hdcorp.hd.service.EmployeeService;
+import ua.com.hdcorp.hd.service.interf.EmployeeService;
+
+import java.util.List;
 
 
 @RestController
@@ -22,13 +22,14 @@ public class EmployeeController {
         this.employeeService = employeeService;
     }
 
-    @GetMapping(value = "admin/{id}")
-    public ResponseEntity<Employee> getUserById(@PathVariable(name = "id") Long id) {
-        Employee employee = employeeService.findById(id);
-
-        if (employee == null) {
-            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
-        }
-        return new ResponseEntity<>(employee, HttpStatus.OK);
+    @PostMapping(value = "admin/employees")
+    public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee){
+        return ResponseEntity.status(HttpStatus.CREATED).body(employeeService.registerNewEmployee(employee));
     }
+
+    @GetMapping(value = "employees",produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<Employee>> findEmployees() {
+        return ResponseEntity.ok(employeeService.getAllEmployees());
+    }
+
 }
