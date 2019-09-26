@@ -7,6 +7,8 @@ import ua.com.hdcorp.hd.model.Role;
 import ua.com.hdcorp.hd.repository.RoleRepository;
 import ua.com.hdcorp.hd.service.interf.RoleService;
 
+import java.util.Optional;
+
 @Service
 public class RoleServiceImpl implements RoleService {
     private final RoleRepository roleRepository;
@@ -22,7 +24,12 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
-    public boolean isRoleEmpty(final Role role) {
-      return StringUtils.isEmpty(role);
+    public Optional<Role> findById(final Long id) {
+        return roleRepository.findById(id);
+    }
+
+    @Override
+    public boolean isRoleEmpty(final Long id) {
+      return findById(id).isPresent();
     }
 }

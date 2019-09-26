@@ -23,9 +23,10 @@ import java.util.stream.Collectors;
 public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
 
 
-    @ExceptionHandler(CustomException.class)
-    public ResponseEntity<Object> handleBadRequest(CustomException exception) {
-        Error error = new Error(exception.getStatus().value(), exception.getMessage(), exception.getDescription());
-        return ResponseEntity.status(exception.getStatus()).body(error);
+    @ExceptionHandler({CustomException.class,ConstraintViolationException.class})
+    public ResponseEntity<Object> handleBadRequest(CustomException customException,ConstraintViolationException exception ) {
+
+        Error error = new Error(customException.getStatus().value(), exception.getMessage(), customException.getDescription());
+        return ResponseEntity.status(customException.getStatus()).body(error);
     }
 }

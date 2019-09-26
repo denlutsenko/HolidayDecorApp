@@ -2,12 +2,11 @@ package ua.com.hdcorp.hd.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
@@ -18,7 +17,6 @@ public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-
     private Long id;
 
     @CreatedDate
@@ -34,10 +32,12 @@ public class Employee {
     @Column(name = "status")
     private Status status = Status.ACTIVE;
 
+    @NotNull(message = "First name can not be null")
     @Size(max = 50)
     @Column(name = "first_name", nullable = false)
     private String firstName;
 
+    @NotNull(message = "Last name can not be null")
     @Size(max = 50)
     @Column(name = "last_name", nullable = false)
     private String lastName;
@@ -50,15 +50,16 @@ public class Employee {
     @Column(name = "phone")
     private String phone;
 
+    @NotNull(message = "Email can not be null")
     @Size(max = 50)
     @Column(name = "email", unique = true, nullable = false)
     private String email;
 
+    @NotNull(message = "Email can not be null")
     @Size(min = 8, max = 250)
     @Column(name = "password", nullable = false)
     private String password;
 
-    //@JsonManagedReference
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "employee_roles",
             joinColumns = {@JoinColumn(name = "employee_id", referencedColumnName = "id")},
