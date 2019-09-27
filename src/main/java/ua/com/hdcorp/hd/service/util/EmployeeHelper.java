@@ -15,7 +15,7 @@ public class EmployeeHelper {
                 employee.getAddress(),
                 employee.getPhone(),
                 employee.getEmail(),
-                employee.getRoles().get(0)
+                employee.getRole()
         );
     }
 }

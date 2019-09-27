@@ -24,19 +24,7 @@ public class Role {
     @Column(name = "status")
     private Status status = Status.ACTIVE;
 
-    @JsonBackReference
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.LAZY)
-    private List<Employee> employees;
-
     public Role() {
-    }
-
-    public List<Employee> getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(List<Employee> employees) {
-        this.employees = employees;
     }
 
     public Long getId() {
@@ -47,19 +35,19 @@ public class Role {
         this.id = id;
     }
 
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
-
     public String getName() {
         return name;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
     }
 }

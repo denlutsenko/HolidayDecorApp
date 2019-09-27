@@ -23,16 +23,15 @@ public final class JwtEmployeeFactory {
                 employee.getLastName(),
                 employee.getEmail(),
                 employee.getPassword(),
-                mapToGrantedAuthorities(new ArrayList<>(employee.getRoles())),
+                mapToGrantedAuthorities(employee.getRole()),
                 employee.getStatus().equals(Status.ACTIVE),
                 employee.getUpdated()
         );
     }
 
-    private static List<GrantedAuthority> mapToGrantedAuthorities(List<Role> employeeRole) {
-        return employeeRole.stream()
-                .map(role ->
-                        new SimpleGrantedAuthority(role.getName().toString())
-                ).collect(Collectors.toList());
+    private static List<GrantedAuthority> mapToGrantedAuthorities(Role employeeRole) {
+        List<GrantedAuthority> list = new ArrayList<>();
+        list.add(new SimpleGrantedAuthority(employeeRole.getName()));
+        return list;
     }
 }
