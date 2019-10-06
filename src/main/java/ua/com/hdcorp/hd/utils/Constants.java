@@ -6,6 +6,10 @@ public final class Constants {
 
     //EMPLOYEE
     public final static String DUPLICATE_EMAIL = "Email already exists";
+    public final static String EMPLOYEE_NOT_FOUND = "Employee not found";
+
+    //VALIDATION
+    public final static String VALIDATION_FAILED = "Validation Failed";
 
     private Constants(){}
 }

@@ -1,4 +1,4 @@
-package ua.com.hdcorp.hd.securityconfig.jwt;
+package ua.com.hdcorp.hd.configuration.securityconfig.jwt;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -8,7 +8,6 @@ import ua.com.hdcorp.hd.model.Status;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public final class JwtEmployeeFactory {
 

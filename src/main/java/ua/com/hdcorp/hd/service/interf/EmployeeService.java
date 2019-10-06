@@ -5,10 +5,20 @@ import ua.com.hdcorp.hd.model.Employee;
 import ua.com.hdcorp.hd.model.dto.EmployeeDto;
 
 import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 public interface EmployeeService {
 
-    Employee registerNewEmployee(Employee employee);
+    EmployeeDto registerNewEmployee(Employee employee);
+
     Employee findByUsername(String username);
-    List<Employee> getAllEmployees();
+
+    EmployeeDto findEmployee(Long id);
+
+    List<EmployeeDto> getEmployees();
+
+    EmployeeDto deleteEmployee(Long id);
+
+    EmployeeDto updateEmployee(Long id, Map<String, String> employeePatch);
 }

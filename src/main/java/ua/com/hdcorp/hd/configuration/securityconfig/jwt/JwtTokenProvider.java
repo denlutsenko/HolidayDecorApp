@@ -1,4 +1,4 @@
-package ua.com.hdcorp.hd.securityconfig.jwt;
+package ua.com.hdcorp.hd.configuration.securityconfig.jwt;
 
 import io.jsonwebtoken.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,6 @@ import ua.com.hdcorp.hd.model.Role;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Date;
 import java.util.List;

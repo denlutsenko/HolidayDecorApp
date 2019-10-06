@@ -1,4 +1,4 @@
-package ua.com.hdcorp.hd.securityconfig.jwt;
+package ua.com.hdcorp.hd.configuration.securityconfig.jwt;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

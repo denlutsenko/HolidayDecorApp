@@ -1,4 +1,4 @@
-package ua.com.hdcorp.hd.service.util;
+package ua.com.hdcorp.hd.service.helper;
 
 import org.springframework.stereotype.Component;
 import ua.com.hdcorp.hd.model.Employee;

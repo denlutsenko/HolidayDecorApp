@@ -6,9 +6,12 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ua.com.hdcorp.hd.model.Employee;
+import ua.com.hdcorp.hd.model.dto.EmployeeDto;
 import ua.com.hdcorp.hd.service.interf.EmployeeService;
 
+import javax.validation.Valid;
 import java.util.List;
+import java.util.Map;
 
 
 @RestController
@@ -23,13 +26,28 @@ public class EmployeeController {
     }
 
     @PostMapping(value = "admin/employees")
-    public ResponseEntity<Employee> createEmployee(@RequestBody Employee employee){
+    public ResponseEntity<EmployeeDto> createEmployee(@Valid @RequestBody Employee employee) {
         return ResponseEntity.status(HttpStatus.CREATED).body(employeeService.registerNewEmployee(employee));
     }
 
-    @GetMapping(value = "employees",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<List<Employee>> findEmployees() {
-        return ResponseEntity.ok(employeeService.getAllEmployees());
+    @GetMapping(value = "employees/{employeeId}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> findEmployee(@PathVariable("employeeId") Long employeeId) {
+        return ResponseEntity.ok(employeeService.findEmployee(employeeId));
+    }
+
+    @GetMapping(value = "employees", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<List<EmployeeDto>> findAllActiveEmployees() {
+        return ResponseEntity.ok(employeeService.getEmployees());
+    }
+
+    @PatchMapping(value = "employees/{employeeId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<EmployeeDto> updateEmployee(@PathVariable("employeeId") Long employeeId, @RequestBody Map<String, String> employeePatch) {
+        return ResponseEntity.status(HttpStatus.OK).body(employeeService.updateEmployee(employeeId, employeePatch));
+    }
+
+    @DeleteMapping(value = "employees/{employeeId}")
+    public ResponseEntity<EmployeeDto> deleteEmployee(@PathVariable("employeeId") Long employeeId) {
+        return ResponseEntity.status(HttpStatus.OK).body(employeeService.deleteEmployee(employeeId));
     }
 
 }

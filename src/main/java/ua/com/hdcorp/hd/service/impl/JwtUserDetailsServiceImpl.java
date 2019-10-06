@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import ua.com.hdcorp.hd.model.Employee;
-import ua.com.hdcorp.hd.securityconfig.jwt.JwtEmployeeFactory;
+import ua.com.hdcorp.hd.configuration.securityconfig.jwt.JwtEmployeeFactory;
 import ua.com.hdcorp.hd.service.interf.EmployeeService;
 
 @Service

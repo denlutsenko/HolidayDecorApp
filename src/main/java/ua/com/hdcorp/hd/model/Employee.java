@@ -6,60 +6,53 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 import javax.persistence.*;
-import javax.validation.Valid;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
+import java.io.Serializable;
 import java.util.Date;
-import java.util.List;
 
 @Entity
 @Table(name = "employees")
-public class Employee {
+public class Employee implements Serializable {
+    @Column(name = "id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
     private Long id;
 
-    @CreatedDate
     @Column(name = "created")
+    @CreatedDate
     private Date created;
 
-    @LastModifiedDate
     @Column(name = "updated")
+    @LastModifiedDate
     private Date updated;
 
     @JsonIgnore
-    @Enumerated(EnumType.STRING)
     @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private Status status = Status.ACTIVE;
 
-    @NotNull(message = "First name can not be null")
-    @Size(max = 50)
     @Column(name = "first_name", nullable = false)
+    @NotNull(message = "First name can not be null")
     private String firstName;
 
-    @NotNull(message = "Last name can not be null")
-    @Size(max = 50)
     @Column(name = "last_name", nullable = false)
+    @NotNull(message = "Last name can not be null")
     private String lastName;
 
-    @Size(max = 50)
     @Column(name = "address")
+    @Size(max = 350)
     private String address;
 
-    @Size(max = 20)
     @Column(name = "phone")
     private String phone;
 
-    @NotNull(message = "Email can not be null")
-    @Valid()
-    @Size(max = 50)
     @Column(name = "email", unique = true, nullable = false)
+    @NotBlank(message = "Email can not be null or blank")
     private String email;
 
-    @NotNull(message = "Email can not be null")
-    @Size(min = 8, max = 250)
     @Column(name = "password", nullable = false)
+    @Size(min=5, message = "Password min length is 5 symbols")
+    @NotBlank(message = "Password can not be null or blank")
     private String password;
 
     @ManyToOne(fetch = FetchType.EAGER)

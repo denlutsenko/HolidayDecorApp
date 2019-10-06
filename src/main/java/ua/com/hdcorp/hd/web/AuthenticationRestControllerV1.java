@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import ua.com.hdcorp.hd.model.Employee;
-import ua.com.hdcorp.hd.securityconfig.jwt.JwtTokenProvider;
+import ua.com.hdcorp.hd.configuration.securityconfig.jwt.JwtTokenProvider;
 import ua.com.hdcorp.hd.service.interf.EmployeeService;
 
 import java.util.HashMap;
