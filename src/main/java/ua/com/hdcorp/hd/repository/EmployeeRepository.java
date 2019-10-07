@@ -15,6 +15,6 @@ public interface EmployeeRepository extends RefreshableRepository<Employee, Long
     List<Employee> findAllActiveEmployees();
 
     @Query(value = "SELECT * FROM employees WHERE id=?1 And status=?2", nativeQuery = true)
-    Optional<Employee> findByIdAndActiveStatus(Long id, Enum status);
+    Optional<Employee> findByIdAndActiveStatus(Long id, String status);
 
 }

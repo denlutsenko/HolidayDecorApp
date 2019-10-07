@@ -40,8 +40,8 @@ public class EmployeeController {
         return ResponseEntity.ok(employeeService.getEmployees());
     }
 
-    @PatchMapping(value = "employees/{employeeId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<EmployeeDto> updateEmployee(@PathVariable("employeeId") Long employeeId, @RequestBody Map<String, String> employeePatch) {
+    @PatchMapping(value = "admin/employees/{employeeId}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<EmployeeDto> updateEmployee(@PathVariable("employeeId") Long employeeId, @Valid  @RequestBody Employee employeePatch) {
         return ResponseEntity.status(HttpStatus.OK).body(employeeService.updateEmployee(employeeId, employeePatch));
     }
 
@@ -49,5 +49,4 @@ public class EmployeeController {
     public ResponseEntity<EmployeeDto> deleteEmployee(@PathVariable("employeeId") Long employeeId) {
         return ResponseEntity.status(HttpStatus.OK).body(employeeService.deleteEmployee(employeeId));
     }
-
 }

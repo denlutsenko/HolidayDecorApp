@@ -6,20 +6,22 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import ua.com.hdcorp.hd.exception.DuplicateFoundException;
 import ua.com.hdcorp.hd.exception.NoContentException;
-import ua.com.hdcorp.hd.exception.NotFoundException;
 import ua.com.hdcorp.hd.model.Employee;
 import ua.com.hdcorp.hd.model.Role;
 import ua.com.hdcorp.hd.model.Status;
 import ua.com.hdcorp.hd.model.dto.EmployeeDto;
 import ua.com.hdcorp.hd.repository.EmployeeRepository;
+import ua.com.hdcorp.hd.service.helper.EmployeeHelper;
 import ua.com.hdcorp.hd.service.helper.EntityPatchHelper;
 import ua.com.hdcorp.hd.service.interf.EmployeeService;
 import ua.com.hdcorp.hd.service.interf.RoleService;
-import ua.com.hdcorp.hd.service.helper.EmployeeHelper;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
-import static ua.com.hdcorp.hd.utils.Constants.*;
+import static ua.com.hdcorp.hd.utils.Constants.DUPLICATE_EMAIL;
+import static ua.com.hdcorp.hd.utils.Constants.EMPLOYEE_NOT_FOUND;
 
 @Service
 public class EmployeeServiceImpl implements EmployeeService {
@@ -42,7 +44,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     public EmployeeDto registerNewEmployee(Employee employee) {
         Date date = new Date();
-        Role role = roleService.findById(employee.getRole().getId()).orElseThrow(() -> new NoContentException(ROLE_NOT_FOUND));
+        Role role = roleService.findById(employee.getRole().getId());
 
         if (findByUsername(employee.getEmail()) != null) {
             throw new DuplicateFoundException(DUPLICATE_EMAIL);
@@ -79,11 +81,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public EmployeeDto updateEmployee(Long id, Map<String, String> employeePatch) {
-        Employee employee = getEmployeeById(id);
-        entityPatchHelper.patch(employee, employeePatch);
+    public EmployeeDto updateEmployee(Long id, Employee employee) {
+        Employee employeeToPatch = getEmployeeById(id);
+        roleService.findById(employee.getRole().getId());
 
-        Employee savedEmployee = employeeRepository.save(employee);
+        employeeHelper.patchEmployee(employeeToPatch, employee);
+
+        Employee savedEmployee = employeeRepository.save(employeeToPatch);
         employeeRepository.refresh(savedEmployee);
         return employeeHelper.convertToEmployeeDto(savedEmployee);
     }
@@ -99,7 +103,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     public Employee getEmployeeById(Long id) {
-        return employeeRepository.findByIdAndActiveStatus(id, Status.ACTIVE)
+        return employeeRepository.findByIdAndActiveStatus(id, Status.ACTIVE.name())
                 .orElseThrow(() -> new NoContentException(EMPLOYEE_NOT_FOUND));
     }
 }

@@ -20,5 +20,5 @@ public interface EmployeeService {
 
     EmployeeDto deleteEmployee(Long id);
 
-    EmployeeDto updateEmployee(Long id, Map<String, String> employeePatch);
+    EmployeeDto updateEmployee(Long id, Employee employeePatch);
 }

@@ -11,7 +11,7 @@ import java.util.Optional;
 import java.util.stream.Stream;
 
 @Component
-public class EntityPatchHelper {
+public class EntityPatchHelper{
 
     private static final String SETTER_PREFIX = "set";
 
