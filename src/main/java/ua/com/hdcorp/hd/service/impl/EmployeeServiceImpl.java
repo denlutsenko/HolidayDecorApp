@@ -32,7 +32,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final EntityPatchHelper entityPatchHelper;
 
     @Autowired
-
     public EmployeeServiceImpl(EmployeeRepository employeeRepository, RoleService roleService, BCryptPasswordEncoder passwordEncoder, EmployeeHelper employeeHelper, EntityPatchHelper entityPatchHelper) {
         this.employeeRepository = employeeRepository;
         this.roleService = roleService;
