@@ -7,10 +7,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ua.com.hdcorp.hd.model.Employee;
 import ua.com.hdcorp.hd.configuration.securityconfig.jwt.JwtTokenProvider;
 import ua.com.hdcorp.hd.service.interf.EmployeeService;
@@ -19,6 +16,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @RestController
+@CrossOrigin
 @RequestMapping(value = "/api/v1/auth/")
 public class AuthenticationRestControllerV1 {
     private final static String PASSWORD = "password";
