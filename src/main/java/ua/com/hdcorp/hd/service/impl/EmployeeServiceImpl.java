@@ -101,6 +101,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         return employeeHelper.convertToEmployeeDto(employee);
     }
 
+    @Override
     public Employee getEmployeeById(Long id) {
         return employeeRepository.findByIdAndActiveStatus(id, Status.ACTIVE.name())
                 .orElseThrow(() -> new NoContentException(EMPLOYEE_NOT_FOUND));

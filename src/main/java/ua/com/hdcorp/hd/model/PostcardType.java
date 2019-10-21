@@ -6,7 +6,7 @@ import javax.persistence.*;
 @Table(name = "postcard_types")
 public class PostcardType {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
 

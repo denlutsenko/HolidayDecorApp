@@ -11,6 +11,7 @@ import java.util.Optional;
 @Repository
 public interface EmployeeRepository extends RefreshableRepository<Employee, Long> {
     Employee findByEmail(String email);
+
     @Query(value = "SELECT * FROM employees WHERE status='ACTIVE'", nativeQuery = true)
     List<Employee> findAllActiveEmployees();
 

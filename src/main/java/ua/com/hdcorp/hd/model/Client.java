@@ -10,7 +10,7 @@ import java.util.List;
 @Table(name = "clients")
 public class Client {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;

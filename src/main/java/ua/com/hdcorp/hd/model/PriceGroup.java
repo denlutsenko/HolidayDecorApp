@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Table(name = "price_groups")
 public class PriceGroup implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private Long id;

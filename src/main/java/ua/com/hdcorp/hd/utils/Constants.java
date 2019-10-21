@@ -11,5 +11,9 @@ public final class Constants {
     //VALIDATION
     public final static String VALIDATION_FAILED = "Validation Failed";
 
+
+    //PRODUCTION
+    public final static String CAN_NOT_SAVE_PRODUCTION = "Can't save production. Check data";
+
     private Constants(){}
 }
