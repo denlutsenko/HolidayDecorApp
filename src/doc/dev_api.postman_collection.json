@@ -1,0 +1,194 @@
+{
+	"variables": [],
+	"info": {
+		"name": "dev_api",
+		"_postman_id": "123a34f7-9bf0-4770-16f2-91b27016ce85",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "auth_v1",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							"var data = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"token\", data.token);"
+						]
+					}
+				}
+			],
+			"request": {
+				"url": "{{host}}/api/v1/auth/login",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"email\":\"{{email}}\",\n\t\"password\":\"{{password}}\"\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST Employee",
+			"request": {
+				"url": "{{host}}/api/v1/admin/employees",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer_{{token}}",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n    \"firstName\": \"Den\",\r\n    \"lastName\": \"Luts\",\r\n    \"address\": \"Kiev\",\r\n    \"phone\": \"0953222096\",\r\n    \"email\": \"qqqqqq\",\r\n    \"password\":\"qqqqqq\",\r\n    \"role\": \r\n          {\r\n           \"id\":1\r\n          }\r\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Employees",
+			"request": {
+				"url": "{{host}}/api/v1/employees",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer_{{token}}",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": "",
+						"disabled": true
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "GET Employee",
+			"request": {
+				"url": "{{host}}/api/v1/employees/1",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer_{{token}}",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "DELETE Delete Employee",
+			"request": {
+				"url": "{{host}}/api/v1/employees/5444",
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer_{{token}}",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": ""
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "PATCH Employee",
+			"request": {
+				"url": "{{host}}/api/v1/employees/1",
+				"method": "PATCH",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer_{{token}}",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n        \"firstName\": \"Den123\",\r\n        \"lastName\": \"Luts13\",\r\n        \"phone\": \"09532220961\",\r\n        \"email\": \"email\",\r\n        \"password\":\"admin123\",\r\n        \"address\": \"admin123\",\r\n        \"role\":\r\n        {\r\n        \t\"id\":1\r\n        }\r\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "POST Production",
+			"request": {
+				"url": "{{host}}/api/v1/admin/employees",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer_{{token}}",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\r\n    \"firstName\": \"Den\",\r\n    \"lastName\": \"Luts\",\r\n    \"address\": \"Kiev\",\r\n    \"phone\": \"0953222096\",\r\n    \"email\": \"qqqqqq\",\r\n    \"password\":\"qqqqqq\",\r\n    \"role\": \r\n          {\r\n           \"id\":1\r\n          }\r\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
