@@ -1,0 +1,163 @@
+drop database hdcorp;
+create database hdcorp;
+use hdcorp;
+
+select * from employees;
+select * from stores;
+select * from roles;
+select * from employee_roles;
+select * from postcards;
+
+
+
+show full COLUMNS  from employees;
+
+insert into roles values
+(1, 'ROLE_ADMIN', 'ACTIVE'),
+(2, 'ROLE_USER', 'ACTIVE');
+
+
+insert into employees values
+(1, 'Kiev', curdate(),'email', 'Den', 'Luts', '$2a$10$XcyYfg1omRLJKETsSNYUeOVFpSNw1nhoG5HGFhzChv6I9ALbQyStG','0953222096', 'ACTIVE', curdate(),1),
+(2, 'Kiev', curdate(),'email1', 'Den', 'Luts', '$2a$10$XcyYfg1omRLJKETsSNYUeOVFpSNw1nhoG5HGFhzChv6I9ALbQyStG','0953222096', 'ACTIVE', curdate(),2);
+
+
+
+
+INSERT INTO hdcorp.postcard_types (id, name) VALUES
+(1, 'Открытка'),
+(2, 'Мини'),
+(3, 'Бумага');
+
+INSERT INTO hdcorp.postcards (id, photo_location, photo_name,  vendor_code, type_id, `status`) VALUES
+(1, 'location1', 'Море', 'о-01-1', 1,1),
+(2, 'location2', 'Свадьба', 'о-01-2', 1,1),
+(3, 'location3', 'Озеро', 'м-01-1', 2,1),
+(4, 'location4', 'Дерево', 'м-01-2', 2,1),
+(5, 'location5', 'Стол', 'б-бб-1', 3,1),
+(6, 'location6', 'Стул', 'б-бб-2', 3,1);
+
+
+SELECT * FROM employees WHERE status='ACTIVE';
+
+INSERT INTO hdcorp.inventoryHistory(id)
+
+
+=============================================================
+INSERT INTO hdcorp.roles (id, role) VALUES
+(1, 'Директор'),
+(2, 'Админ'),
+(3, 'Волшебный эльф'),
+(4, 'Менеджер');
+
+INSERT INTO hdcorp.postcard_types (id, name) VALUES
+(1, 'Открытка'),
+(2, 'Мини'),
+(3, 'Бумага');
+
+INSERT INTO hdcorp.postcards (id, photo_location_path, photo_name, price, vendor_code, type_id) VALUES
+(1, 'location1', 'Море', 24.00, 'о-01-1', 1),
+(2, 'location2', 'Свадьба', 24.00, 'о-01-2', 1),
+(3, 'location3', 'Озеро', 24.00, 'м-01-1', 2),
+(4, 'location4', 'Дерево', 24.00, 'м-01-2', 2),
+(5, 'location5', 'Стол', 24.00, 'б-бб-1', 3),
+(6, 'location6', 'Стул', 24.00, 'б-бб-2', 3);
+
+INSERT INTO hdcorp.users (id, address, email, first_name, last_name, password, phone,  role_id) VALUES
+(1, 'Киев, Дмитриевская 80', 'shmulyaeva@gmail.com', 'Таня', 'Шмуляева', '111', '0505016068', 1),
+(2, 'Киев, Дмитриевская 80', 'pavlik@gmail.com', 'Ира', 'Павлик', '111', '0505016068', 1),
+(3, 'Минск', 'admin', 'Денис', 'Луценко', 'admin', '8534806975',  2),
+(4, 'Киев, Дмитриевская 80', 'elf@gmail.com', 'Эльф', 'Волшебный', '111', '398679044', 3);
+
+INSERT INTO hdcorp.postcards_production (id, production_date, quantity, postcard_id, user_id) VALUES
+(1, '2018-01-01 10:16:23', 1, 1, 1),
+(2, '2018-08-08 10:16:23', 1, 1, 1),
+(3, '2018-08-08 10:16:23', 1, 1, 2),
+(4, '2018-08-08 10:16:23', 1, 2, 2),
+(5, '2018-03-05 10:16:23', 1, 4, 3),
+(6, '2018-08-08 10:16:23', 1, 5, 3),
+(7, '2018-08-08 10:16:23', 1, 5, 3) ;
+
+INSERT INTO hdcorp.remains (date, quantity, postcard_id) VALUES
+('2018-08-13 15:24:41', 2, 1),
+('2018-08-13 15:24:41', 15, 2),
+('2018-08-13 15:24:41', 12, 3),
+('2018-08-13 15:24:41', 14, 4);
+
+INSERT INTO hdcorp.discount (id, count_of_discount, sum_barrier) VALUES
+(1, 0, 1000.00),
+(2, 1, 2000.00);
+
+INSERT INTO hdcorp.clients (id, comment, company_name, email, first_name, last_name, phone) VALUES
+(1, 'NULL', 'ОАО Цветы', 'flowers@gmail.com', 'Евгения', 'Захаренко', '555-22-33'),
+(2, 'NULL', 'Уют', 'mail@gmail.com', 'Сергей', 'Петренко', '888-555-777'),
+(3, 'NULL', 'ИП Кайнога', 'yan@mail.ru', 'Ян', 'Кайнога', '444-55-22');
+
+INSERT INTO hdcorp.client_stores (id, city, country, street, client_id) VALUES
+(1, 'Москва', 'Россия', 'Ветеранов 43', 3),
+(2, 'Москва', 'Россия', 'Московский проспект, 25', 3),
+(3, 'Минск', 'Беларусь', 'Немыга 7', 2),
+(4, 'Минск', 'Беларусь', 'проспект Победителей 25', 2),
+(5, 'Киев', 'Украина', 'Глубочитская 32', 1),
+(6, 'Киев', 'Украина', 'Крещатик Глобус', 1),
+(7, 'Киев', 'Украина', 'Крещатик ЦУМ', 1);
+
+INSERT INTO hdcorp.orders (comment, order_date, order_sum, order_sum_with_discount, client_id, discount_id) VALUES
+('aaa', '2018-08-13 15:34:49', 10.00, 10.00, 1, 1),
+('bbb', '2018-08-13 15:34:49', 15.00, 15.00, 1, 1);
+
+INSERT INTO hdcorp.order_details (order_id, quantity, postcard_id) VALUES
+(1, 1, 1),
+(1, 2, 2),
+(2, 3, 3);
+
+INSERT INTO hdcorp.monthly_remains (id, date, quantity, postcard_id) VALUES
+(1, '2018-08-01 15:38:29', 3, 1),
+(2, '2018-08-01 15:38:42', 4, 2);
+
+insert into postcard_accounting (date,photo_location_path,photo_name, vendor_code, postcard_type, p_type_id, curr_produced, curr_ordered, first_day_remain, current_remain)
+SELECT
+CURDATE() as date,
+p.photo_location_path,
+p.photo_name,
+p.vendor_code,
+pt.type as postcard_type,
+pt.id as p_type_id,
+IFNULL(pp.count, 0) AS curr_produced,
+IFNULL(od.ord_cout, 0) AS curr_ordered,
+IFNULL(mr.quantity, 0) AS first_day_remain,
+IFNULL(r.quantity, 0) AS current_remain
+FROM hdcorp.postcards p
+LEFT JOIN (
+SELECT SUM(pp.quantity) AS count, pp.postcard_id
+FROM hdcorp.postcards_production pp
+WHERE
+MONTH(pp.production_date) = MONTH(CURDATE())
+AND YEAR(pp.production_date) = YEAR(CURDATE())
+GROUP BY pp.postcard_id
+) pp ON p.id = pp.postcard_id
+
+LEFT JOIN (
+SELECT od.postcard_id, SUM(od.quantity) AS ord_cout
+FROM order_details od
+JOIN orders o ON o.id = od.order_id
+WHERE
+MONTH(o.order_date) = MONTH(CURDATE())
+AND YEAR(o.order_date) = YEAR(CURDATE())
+GROUP BY od.postcard_id) od ON p.id = od.postcard_id
+
+LEFT JOIN (
+SELECT mr.postcard_id, mr.quantity
+FROM monthly_remains mr
+WHERE
+MONTH(mr.date) = MONTH(CURDATE())
+AND YEAR(mr.date) = YEAR(CURDATE()) ) mr ON p.id = mr.postcard_id
+
+LEFT JOIN (
+SELECT r.postcard_id, r.quantity
+FROM remains r
+WHERE
+MONTH(r.date) = MONTH(CURDATE())
+AND YEAR(r.date) = YEAR(CURDATE()) ) r ON p.id = r.postcard_id
+INNER JOIN postcard_type pt ON p.type_id = pt.id
+;
