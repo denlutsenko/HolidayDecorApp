@@ -5,29 +5,25 @@ import ua.com.hdcorp.hd.model.Production;
 import java.util.List;
 
 public class ProductionDto {
-    private Long employeeId;
-    private List<Production> productionList;
+    private Long postcardId;
+    private Integer quantity;
 
-    public ProductionDto(){}
-
-    public ProductionDto(Long employeeId, List<Production> productionList) {
-        this.employeeId = employeeId;
-        this.productionList = productionList;
+    public ProductionDto() {
     }
 
-    public Long getEmployeeId() {
-        return employeeId;
+    public Long getPostcardId() {
+        return postcardId;
     }
 
-    public void setEmployeeId(Long employeeId) {
-        this.employeeId = employeeId;
+    public void setPostcardId(Long postcardId) {
+        this.postcardId = postcardId;
     }
 
-    public List<Production> getProductionList() {
-        return productionList;
+    public Integer getQuantity() {
+        return quantity;
     }
 
-    public void setProductionList(List<Production> productionList) {
-        this.productionList = productionList;
+    public void setQuantity(Integer quantity) {
+        this.quantity = quantity;
     }
 }

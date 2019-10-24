@@ -3,6 +3,7 @@ package ua.com.hdcorp.hd.model;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
+import javax.validation.constraints.Min;
 import java.io.Serializable;
 import java.util.Date;
 
@@ -11,8 +12,7 @@ import java.util.Date;
 public class Production implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", updatable = false, nullable = false)
-    @JsonProperty(access = JsonProperty.Access.READ_ONLY)
+    @Column(name = "id")
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -24,12 +24,20 @@ public class Production implements Serializable {
     private Postcard postcard;
 
     @Column(name = "quantity", nullable = false)
+    @Min(value = 0, message = "The value must be positive")
     private Integer quantity;
 
     @Column(name = "date", nullable = false)
     private Date date;
 
     public Production() {
+    }
+
+    public Production(Employee employee, Postcard postcard, @Min(value = 0, message = "The value must be positive") Integer quantity, Date date) {
+        this.employee = employee;
+        this.postcard = postcard;
+        this.quantity = quantity;
+        this.date = date;
     }
 
     public Long getId() {

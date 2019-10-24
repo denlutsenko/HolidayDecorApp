@@ -74,7 +74,7 @@ public class EmployeeServiceImpl implements EmployeeService {
     }
 
     @Override
-    public EmployeeDto findEmployee(Long id) {
+    public EmployeeDto findEmployeeById(Long id) {
         Employee employee = getEmployeeById(id);
         return employeeHelper.convertToEmployeeDto(employee);
     }

@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@RequestMapping(value = "/api/v1/")
+@RequestMapping(value = "/api/v1/production/")
 public class ProductionController {
 
     private final ProductionService productionService;
@@ -24,9 +24,9 @@ public class ProductionController {
         this.productionService = productionService;
     }
 
-    @PostMapping(value = "production")
-    public ResponseEntity<Production> createEmployee(@Valid @RequestBody ProductionDto productionDtoList) {
-        productionService.addProduction(productionDtoList);
+    @PostMapping(value = "{employeeId}")
+    public ResponseEntity<Production> createEmployee(@Valid @RequestBody List<ProductionDto> productionDtoList, @PathVariable("employeeId") Long employeeId) {
+        productionService.addProduction(productionDtoList, employeeId);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 }

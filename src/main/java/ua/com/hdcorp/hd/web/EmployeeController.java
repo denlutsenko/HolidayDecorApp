@@ -33,7 +33,7 @@ public class EmployeeController {
 
     @GetMapping(value = "employees/{employeeId}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> findEmployee(@PathVariable("employeeId") Long employeeId) {
-        return ResponseEntity.ok(employeeService.findEmployee(employeeId));
+        return ResponseEntity.ok(employeeService.findEmployeeById(employeeId));
     }
 
     @GetMapping(value = "employees", produces = MediaType.APPLICATION_JSON_VALUE)

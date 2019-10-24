@@ -14,7 +14,7 @@ public interface EmployeeService {
 
     Employee findByUsername(String username);
 
-    EmployeeDto findEmployee(Long id);
+    EmployeeDto findEmployeeById(Long id);
 
     Employee getEmployeeById(Long id);
 

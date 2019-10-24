@@ -15,5 +15,8 @@ public final class Constants {
     //PRODUCTION
     public final static String CAN_NOT_SAVE_PRODUCTION = "Can't save production. Check data";
 
+    //POSTCARD
+    public final static String POSTCARD_NOT_FOUND = "Postcard does not exist";
+
     private Constants(){}
 }
