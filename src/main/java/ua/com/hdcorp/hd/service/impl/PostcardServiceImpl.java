@@ -8,11 +8,12 @@ import ua.com.hdcorp.hd.model.Status;
 import ua.com.hdcorp.hd.repository.PostcardRepository;
 import ua.com.hdcorp.hd.service.interf.PostcardService;
 
+import java.util.List;
+
 import static ua.com.hdcorp.hd.utils.Constants.POSTCARD_NOT_FOUND;
 
 @Service
 public class PostcardServiceImpl implements PostcardService {
-
     private final PostcardRepository postcardRepository;
 
     @Autowired
@@ -24,5 +25,10 @@ public class PostcardServiceImpl implements PostcardService {
     public Postcard getPostcardById(Long postcardId) {
         return postcardRepository.findByIdAndActiveStatus(postcardId, Status.ACTIVE.name())
                 .orElseThrow(()-> new NotFoundException(POSTCARD_NOT_FOUND));
+    }
+
+    @Override
+    public List<Postcard> findAllActivePostcards() {
+        return postcardRepository.findAllActivePostcards();
     }
 }

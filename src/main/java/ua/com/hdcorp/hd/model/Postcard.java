@@ -1,5 +1,6 @@
 package ua.com.hdcorp.hd.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -31,10 +32,12 @@ public class Postcard implements Serializable {
     @JoinColumn(name = "type_id")
     private PostcardType type;
 
-    @Enumerated(EnumType.STRING)
+    @JsonIgnore
     @Column(name = "status")
+    @Enumerated(EnumType.STRING)
     private Status status = Status.ACTIVE;
 
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "postcard")
     private List<Price> prices = new ArrayList<>();
 

@@ -13,7 +13,7 @@ public final class Constants {
 
 
     //PRODUCTION
-    public final static String CAN_NOT_SAVE_PRODUCTION = "Can't save production. Check data";
+    public final static String NEGATIVE_QUANTITY = "Quantity should be > 0";
 
     //POSTCARD
     public final static String POSTCARD_NOT_FOUND = "Postcard does not exist";

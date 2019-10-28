@@ -11,8 +11,8 @@ import ua.com.hdcorp.hd.model.Role;
 import ua.com.hdcorp.hd.model.Status;
 import ua.com.hdcorp.hd.model.dto.EmployeeDto;
 import ua.com.hdcorp.hd.repository.EmployeeRepository;
+import ua.com.hdcorp.hd.helper.EntityPatchHelper;
 import ua.com.hdcorp.hd.service.helper.EmployeeHelper;
-import ua.com.hdcorp.hd.service.helper.EntityPatchHelper;
 import ua.com.hdcorp.hd.service.interf.EmployeeService;
 import ua.com.hdcorp.hd.service.interf.RoleService;
 

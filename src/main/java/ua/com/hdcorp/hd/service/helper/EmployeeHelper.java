@@ -11,7 +11,6 @@ public class EmployeeHelper {
 
     private final BCryptPasswordEncoder passwordEncoder;
 
-    @Autowired
     public EmployeeHelper(BCryptPasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }

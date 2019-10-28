@@ -25,7 +25,7 @@ public class ProductionController {
     }
 
     @PostMapping(value = "{employeeId}")
-    public ResponseEntity<Production> createEmployee(@Valid @RequestBody List<ProductionDto> productionDtoList, @PathVariable("employeeId") Long employeeId) {
+    public ResponseEntity<Production> createEmployee(@RequestBody List<ProductionDto> productionDtoList, @PathVariable("employeeId") Long employeeId) {
         productionService.addProduction(productionDtoList, employeeId);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }

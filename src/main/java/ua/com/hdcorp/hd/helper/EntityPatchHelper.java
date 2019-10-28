@@ -1,4 +1,4 @@
-package ua.com.hdcorp.hd.service.helper;
+package ua.com.hdcorp.hd.helper;
 
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;

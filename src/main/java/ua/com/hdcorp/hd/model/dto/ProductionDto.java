@@ -1,9 +1,5 @@
 package ua.com.hdcorp.hd.model.dto;
 
-import ua.com.hdcorp.hd.model.Production;
-
-import java.util.List;
-
 public class ProductionDto {
     private Long postcardId;
     private Integer quantity;
