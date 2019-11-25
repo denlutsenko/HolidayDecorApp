@@ -11,8 +11,7 @@ import ua.com.hdcorp.hd.model.Role;
 import ua.com.hdcorp.hd.model.Status;
 import ua.com.hdcorp.hd.model.dto.EmployeeDto;
 import ua.com.hdcorp.hd.repository.EmployeeRepository;
-import ua.com.hdcorp.hd.helper.EntityPatchHelper;
-import ua.com.hdcorp.hd.service.helper.EmployeeHelper;
+import ua.com.hdcorp.hd.helper.EmployeeHelper;
 import ua.com.hdcorp.hd.service.interf.EmployeeService;
 import ua.com.hdcorp.hd.service.interf.RoleService;
 
@@ -29,15 +28,13 @@ public class EmployeeServiceImpl implements EmployeeService {
     private final RoleService roleService;
     private final BCryptPasswordEncoder passwordEncoder;
     private final EmployeeHelper employeeHelper;
-    private final EntityPatchHelper entityPatchHelper;
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository, RoleService roleService, BCryptPasswordEncoder passwordEncoder, EmployeeHelper employeeHelper, EntityPatchHelper entityPatchHelper) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, RoleService roleService, BCryptPasswordEncoder passwordEncoder, EmployeeHelper employeeHelper) {
         this.employeeRepository = employeeRepository;
         this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
         this.employeeHelper = employeeHelper;
-        this.entityPatchHelper = entityPatchHelper;
     }
 
     @Override
@@ -103,7 +100,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 
     @Override
     public Employee getEmployeeById(Long id) {
-        return employeeRepository.findByIdAndActiveStatus(id, Status.ACTIVE.name())
+        return employeeRepository.findByIdAndActiveStatus(id)
                 .orElseThrow(() -> new NoContentException(EMPLOYEE_NOT_FOUND));
     }
 }
