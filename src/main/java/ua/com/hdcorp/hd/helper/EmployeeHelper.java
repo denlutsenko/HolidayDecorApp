@@ -1,4 +1,4 @@
-package ua.com.hdcorp.hd.service.helper;
+package ua.com.hdcorp.hd.helper;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -11,6 +11,7 @@ public class EmployeeHelper {
 
     private final BCryptPasswordEncoder passwordEncoder;
 
+    @Autowired
     public EmployeeHelper(BCryptPasswordEncoder passwordEncoder) {
         this.passwordEncoder = passwordEncoder;
     }

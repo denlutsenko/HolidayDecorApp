@@ -2,6 +2,7 @@ package ua.com.hdcorp.hd.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import ua.com.hdcorp.hd.exception.BadRequestException;
 import ua.com.hdcorp.hd.exception.NotFoundException;
 import ua.com.hdcorp.hd.model.Postcard;
 import ua.com.hdcorp.hd.model.Status;
@@ -23,8 +24,8 @@ public class PostcardServiceImpl implements PostcardService {
 
     @Override
     public Postcard getPostcardById(Long postcardId) {
-        return postcardRepository.findByIdAndActiveStatus(postcardId, Status.ACTIVE.name())
-                .orElseThrow(()-> new NotFoundException(POSTCARD_NOT_FOUND));
+        return postcardRepository.findByIdAndActiveStatus(postcardId)
+                .orElseThrow(()-> new BadRequestException(POSTCARD_NOT_FOUND));
     }
 
     @Override

@@ -10,8 +10,8 @@ import java.util.Optional;
 @Repository
 public interface PostcardRepository extends RefreshableRepository<Postcard, Long> {
 
-    @Query(value = "SELECT * FROM postcards WHERE id=?1 AND status=?2", nativeQuery = true)
-    Optional<Postcard> findByIdAndActiveStatus(Long id, String status);
+    @Query(value = "SELECT * FROM postcards WHERE id=?1 AND status='ACTIVE'", nativeQuery = true)
+    Optional<Postcard> findByIdAndActiveStatus(Long id);
 
     @Query(value = "SELECT * FROM postcards WHERE status='ACTIVE'", nativeQuery = true)
     List<Postcard> findAllActivePostcards();
